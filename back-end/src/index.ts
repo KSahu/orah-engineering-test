@@ -4,7 +4,9 @@ import * as express from "express"
 import * as bodyParser from "body-parser"
 import * as cors from "cors"
 import { Request, Response } from "express"
-import { Routes } from "./routes"
+import { StudentRoutes } from "./routes/student-routes"
+import { RollRoutes } from "./routes/roll-routes"
+import { GroupRoutes } from "./routes/group-routes"
 import { Student } from "./entity/student.entity"
 
 createConnection()
@@ -14,6 +16,7 @@ createConnection()
     app.use(cors())
     app.use(bodyParser.json())
 
+    const Routes = [ ...StudentRoutes, ...RollRoutes, ...GroupRoutes];
     // register express routes from defined application routes
     Routes.forEach((route) => {
       ;(app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {

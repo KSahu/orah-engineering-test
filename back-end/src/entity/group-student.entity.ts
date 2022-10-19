@@ -14,5 +14,4 @@ export class GroupStudent {
   @Column()
   incident_count: number
 
-
 }

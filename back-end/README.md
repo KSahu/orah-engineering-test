@@ -53,7 +53,7 @@ CREATE TABLE group(
 	student_count INTEGER NOT NULL
 );
 
-CREATE TABLE student_group(
+CREATE TABLE group_student(
    	id INT PRIMARY KEY NOT NULL,
 	group_id INT NOT NULL,
 	student_id INT NOT NULL,
