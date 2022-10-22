@@ -29,15 +29,14 @@ export class RollController {
   async updateRoll(request: Request, response: Response, next: NextFunction) {
     const { body: params } = request
 
-    this.rollRepository.findOne(params.id).then((roll) => {
+    const roll = await this.rollRepository.findOne(params.id);
       const updateRollInput: UpdateRollInput = {
         id: params.id,
         name: params.name,
         completed_at: params.completed_at,
-      }
-      roll.prepareToUpdate(updateRollInput)
-      return this.rollRepository.save(roll)
-    })
+      };
+    roll.prepareToUpdate(updateRollInput)
+    return this.rollRepository.save(roll)
   }
 
   async removeRoll(request: Request, response: Response, next: NextFunction) {
