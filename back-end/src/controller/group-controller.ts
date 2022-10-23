@@ -6,16 +6,22 @@ import { ValidationService } from "../services/validations.service";
 import { Group } from "../entity/group.entity";
 import { RollStates } from "../entity/roll-states.entity";
 import { CreateGroupInput } from "../interface/group.interface";
+import { GroupStudent } from "../entity/group-student.entity";
+import { StudentRollState } from "../entity/student-roll-state.entity";
+import { Roll } from "../entity/roll.entity";
 
 export class GroupController {
 
   private groupRepository = getRepository(Group);
   private groupStatesRepository = getRepository(RollStates);
+  private groupStudentRepository = getRepository(GroupStudent);
+  private rollRepository = getRepository(Roll);
+  private studentRollStateRepository = getRepository(StudentRollState);
 
   async allGroups(request: Request, response: Response, next: NextFunction) {
     // Task 1: 
     return this.groupRepository.find({
-      relations: [ 'roll_states'  ]
+      relations: [ 'roll_states' ]
     });
   }
 
@@ -87,7 +93,13 @@ export class GroupController {
     const groupId = request.params.id;
 
     const group = await this.groupRepository.findOne(groupId, {
-      relations: [ 'students'  ]
+      join: {
+        alias: 'group',
+        innerJoinAndSelect: {
+          'groupStudent': 'group.groupStudents',
+          'student': 'groupStudent.student'
+        }
+      }
     });
 
     if(!group) {
@@ -104,10 +116,46 @@ export class GroupController {
     // Task 2:
   
     // 1. Clear out the groups (delete all the students from the groups)
+    await this.groupStudentRepository.clear();
 
     // 2. For each group, query the student rolls to see which students match the filter for the group
+    const groups = await this.groupRepository.find({
+      relations: [ 'roll_states' ]
+    });
 
-    // 3. Add the list of students that match the filter to the group
+    for(const group of groups) {
+
+      console.log(group.name);
+
+      const fromDate = this.getLastDateToEvaluate(group.number_of_weeks);
+
+      const results: Array<{student_id:number; incidents: number}> = await this.rollRepository.createQueryBuilder('roll')
+          .innerJoinAndSelect('student_roll_state', 'studentrollstate', 'roll.id=studentrollstate.roll_id')
+          .where('roll.completed_at >= :fromDate', {fromDate: fromDate.toISOString()})
+          .andWhere('studentrollstate.state IN (:...states)', { states: group.getStates() })
+          .select('studentrollstate.student_id', 'student_id').addSelect('count(studentrollstate.state)', 'incidents')
+          .groupBy('studentrollstate.student_id')
+          .having(`count(studentrollstate.state) ${group.ltmt} ${group.incidents}`) // https://github.com/typeorm/typeorm/issues/5564
+          .getRawMany();
+
+      console.log(results);
+
+      // 3. Add the list of students that match the filter to the group
+
+      const groupStudents: GroupStudent[] = [];
+
+      results?.forEach(result => {
+        const groupStudent = new GroupStudent();
+        groupStudent.group_id = group.id;
+        groupStudent.student_id = result.student_id;
+        groupStudent.incident_count = result.incidents;
+        groupStudents.push(groupStudent);
+      });
+
+      groupStudents.length > 0 && await this.groupStudentRepository.save(groupStudents);
+    }
+
+    return "success";
   }
 
 
@@ -121,6 +169,12 @@ export class GroupController {
       input.roll_states[index] = rollState;
     }
     return input;
+  }
+
+  private getLastDateToEvaluate(weeks: number): Date {
+    const lastDate = new Date();
+    lastDate.setDate(lastDate.getDate() - (weeks * 7));
+    return lastDate;
   }
  
 }

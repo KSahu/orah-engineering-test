@@ -40,12 +40,22 @@ export class RollController {
   }
 
   async removeRoll(request: Request, response: Response, next: NextFunction) {
-    let rollToRemove = await this.rollRepository.findOne(request.params.id)
-    await this.rollRepository.remove(rollToRemove)
+    let rollToRemove = await this.rollRepository.findOne(request.params.id);
+    if (rollToRemove) {
+      await this.rollRepository.remove(rollToRemove);
+      return true;
+    } else {
+      response.status(404).send('Not found');
+      return;
+    }
   }
 
   async getRoll(request: Request, response: Response, next: NextFunction) {
     return this.studentRollStateRepository.find({ roll_id: request.params.id })
+  }
+
+  async getStudentRollStates(request: Request, response: Response, next: NextFunction) {
+    return this.studentRollStateRepository.find();
   }
 
   async addStudentRollStates(request: Request, response: Response, next: NextFunction) {

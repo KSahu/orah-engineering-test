@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "858b6810-63d8-46f5-a095-0782433797dc",
+		"name": "orah-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9377312"
+	},
+	"item": [
+		{
+			"name": "get-all-students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4001/student/get-all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"student",
+						"get-all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-group",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"mostly_on_time_students\",\n    \"number_of_weeks\": 1,\n    \"roll_states\": [\"late\"],\n    \"incidents\": 2,\n    \"ltmt\": \"<\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4001/groups",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"groups"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "'test-group'",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-group",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"mostly_on_time_students\",\n    \"number_of_weeks\": 1,\n    \"roll_states\": [\"unmark\", \"late\"],\n    \"incidents\": 2,\n    \"ltmt\": \"<\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4001/groups/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"groups",
+						"2"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "'test-group'",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-groups",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4001/groups",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"groups"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "'test-group'",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-groups-students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4001/groups/2/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"groups",
+						"2",
+						"students"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "'test-group'",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-group",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4001/groups/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"groups",
+						"2"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "'test-group'",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-roll",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"absent_roll-19oct\",\n    \"completed_at\": \"2022-10-19T08:24:37.551Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4001/roll/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"roll",
+						"create"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "'test-group'",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-rolls",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4001/roll/get-all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"roll",
+						"get-all"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "'test-group'",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-roll",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4001/roll/delete/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"roll",
+						"delete",
+						"4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "'test-group'",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-roll",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"present_roll\",\n    \"completed_at\": \"2022-10-22T08:24:37.551Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4001/roll/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"roll",
+						"update"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "'test-group'",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addStudentRollStates",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n     \"roll_id\": 1,\n     \"student_id\": 1,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 1,\n     \"student_id\": 2,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 1,\n     \"student_id\": 3,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 2,\n     \"student_id\": 4,\n     \"state\": \"late\"\n    },\n    {\n     \"roll_id\": 3,\n     \"student_id\": 1,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 3,\n     \"student_id\": 2,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 4,\n     \"student_id\": 3,\n     \"state\": \"late\"\n    },\n    {\n     \"roll_id\": 5,\n     \"student_id\": 4,\n     \"state\": \"unmark\"\n    },\n    {\n     \"roll_id\": 6,\n     \"student_id\": 1,\n     \"state\": \"late\"\n    },\n    {\n     \"roll_id\": 8,\n     \"student_id\": 2,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 6,\n     \"student_id\": 3,\n     \"state\": \"late\"\n    },\n    {\n     \"roll_id\": 7,\n     \"student_id\": 4,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 10,\n     \"student_id\": 1,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 11,\n     \"student_id\": 2,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 11,\n     \"student_id\": 3,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 9,\n     \"student_id\": 4,\n     \"state\": \"late\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4001/roll/add-student-states",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"roll",
+						"add-student-states"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "'test-group'",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getStudentRollStates",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n     \"roll_id\": 1,\n     \"student_id\": 1,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 1,\n     \"student_id\": 2,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 1,\n     \"student_id\": 3,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 2,\n     \"student_id\": 4,\n     \"state\": \"late\"\n    },\n    {\n     \"roll_id\": 3,\n     \"student_id\": 1,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 3,\n     \"student_id\": 2,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 4,\n     \"student_id\": 3,\n     \"state\": \"late\"\n    },\n    {\n     \"roll_id\": 5,\n     \"student_id\": 4,\n     \"state\": \"unmark\"\n    },\n    {\n     \"roll_id\": 6,\n     \"student_id\": 1,\n     \"state\": \"late\"\n    },\n    {\n     \"roll_id\": 8,\n     \"student_id\": 2,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 6,\n     \"student_id\": 3,\n     \"state\": \"late\"\n    },\n    {\n     \"roll_id\": 7,\n     \"student_id\": 4,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 10,\n     \"student_id\": 1,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 11,\n     \"student_id\": 2,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 11,\n     \"student_id\": 3,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 9,\n     \"student_id\": 4,\n     \"state\": \"late\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4001/roll/student-roll-states",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"roll",
+						"student-roll-states"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "'test-group'",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "runGroupFilters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n     \"roll_id\": 1,\n     \"student_id\": 1,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 1,\n     \"student_id\": 2,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 1,\n     \"student_id\": 3,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 2,\n     \"student_id\": 4,\n     \"state\": \"late\"\n    },\n    {\n     \"roll_id\": 3,\n     \"student_id\": 1,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 3,\n     \"student_id\": 2,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 4,\n     \"student_id\": 3,\n     \"state\": \"late\"\n    },\n    {\n     \"roll_id\": 5,\n     \"student_id\": 4,\n     \"state\": \"unmark\"\n    },\n    {\n     \"roll_id\": 6,\n     \"student_id\": 1,\n     \"state\": \"late\"\n    },\n    {\n     \"roll_id\": 8,\n     \"student_id\": 2,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 6,\n     \"student_id\": 3,\n     \"state\": \"late\"\n    },\n    {\n     \"roll_id\": 7,\n     \"student_id\": 4,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 10,\n     \"student_id\": 1,\n     \"state\": \"present\"\n    },\n    {\n     \"roll_id\": 11,\n     \"student_id\": 2,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 11,\n     \"student_id\": 3,\n     \"state\": \"absent\"\n    },\n    {\n     \"roll_id\": 9,\n     \"student_id\": 4,\n     \"state\": \"late\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4001/groups/run-group-filters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4001",
+					"path": [
+						"groups",
+						"run-group-filters"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "'test-group'",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -30,5 +30,11 @@ export const GroupRoutes = [
         route: "/groups/:id",
         controller: GroupController,
         action: "removeGroup",
+      },
+      {
+        method: "post",
+        route: "/groups/run-group-filters",
+        controller: GroupController,
+        action: "runGroupFilters"
       }
 ]

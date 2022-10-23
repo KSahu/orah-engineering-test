@@ -147,4 +147,6 @@ createConnection()
 
     console.log("Express server has started on port 4001. Open http://localhost:4001/student/get-all to see results")
   })
-  .catch((error) => console.log(error))
+  .catch((error) => {
+     console.log(error)
+  });

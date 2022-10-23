@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
 import { CreateStudentInput, UpdateStudentInput } from "../interface/student.interface"
+import { GroupStudent } from "./group-student.entity"
 
 @Entity()
 export class Student {
@@ -14,6 +15,9 @@ export class Student {
 
   @Column()
   photo_url: string
+
+  @OneToMany(() => GroupStudent, groupStudent => groupStudent.student)
+  groupStudents: GroupStudent[];
 
   public prepareToCreate(input: CreateStudentInput) {
     this.first_name = input.last_name

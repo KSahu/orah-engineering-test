@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from "typeorm"
 import { StudentDto } from "../dto/student.dto";
 import { CreateGroupInput } from "../interface/group.interface"
+import { GroupStudent } from "./group-student.entity";
 import { RollStates } from "./roll-states.entity";
-import { Student } from "./student.entity";
 
 @Entity()
 export class Group {
@@ -35,21 +35,22 @@ export class Group {
   @Column()
   student_count: number;
 
-  @ManyToMany(() => Student, {
-    cascade: true
-  })
-  @JoinTable({
-    name: "group_student",
-    joinColumn: {
-      name: "group_id",
-      referencedColumnName: "id"
-    },
-    inverseJoinColumn: {
-      name: "student_id",
-      referencedColumnName: "id"
-    }
-  })
-  students: Student[];
+  // @ManyToMany() https://github.com/typeorm/typeorm/issues/7315
+  // @JoinTable({
+  //   name: 'group_student',
+  //   joinColumn: {
+  //     name: 'group_id',
+  //     referencedColumnName: 'id'
+  //   }, 
+  //   inverseJoinColumn: {
+  //     name: 'student_id',
+  //     referencedColumnName: 'id'
+  //   }
+  // })
+  // students: Student[];
+
+  @OneToMany(() => GroupStudent, groupStudent => groupStudent.group)
+  groupStudents: GroupStudent[];
 
   public prepareToCreateOrUpdate(input: CreateGroupInput) {
     this.name = input.name;
@@ -62,9 +63,17 @@ export class Group {
 
   public getStudents(): StudentDto[] {
     const studentDto: StudentDto[] = [];
-    this.students?.forEach(student => {
-      studentDto.push(new StudentDto(student))
+    this.groupStudents?.forEach(groupStudent => {
+      studentDto.push(new StudentDto(groupStudent.student))
     });
     return studentDto
+  }
+
+  public getStates(): string[] {
+    const states = [];
+    this.roll_states.forEach( (rollState) => {
+      states.push(rollState.name);
+    });
+    return states;
   }
 }

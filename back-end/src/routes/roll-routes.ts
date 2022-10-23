@@ -27,9 +27,15 @@ export const RollRoutes = [
   },
   {
     method: "delete",
-    route: "/roll/delete",
+    route: "/roll/delete/:id",
     controller: RollController,
     action: "removeRoll",
+  },
+  {
+    method: "get",
+    route: "/roll/student-roll-states",
+    controller: RollController,
+    action: "getStudentRollStates",
   },
   {
     method: "post",
